@@ -1,10 +1,11 @@
 import streamlit as st
-from pydub import AudioSegment
-from pydub.playback import play
+import soundfile as sf
+import sounddevice as sd
 
 def play_sound(sound_file):
-    audio = AudioSegment.from_file(sound_file)
-    play(audio)
+    data, samplerate = sf.read(sound_file)
+    sd.play(data, samplerate)
+    sd.wait()
 
 def main():
     st.title("Meditation App")
@@ -31,11 +32,11 @@ def main():
         )
         if st.button("Play"):
             if sound_choice == "Ocean Waves":
-                play_sound("ocean_waves.mp3")
+                play_sound("ocean_waves.wav")
             elif sound_choice == "Rainforest":
-                play_sound("rainforest.mp3")
+                play_sound("rainforest.wav")
             elif sound_choice == "Soft Piano":
-                play_sound("soft_piano.mp3")
+                play_sound("soft_piano.wav")
 
     elif option == "Breathing Exercises":
         st.write("Practice deep breathing exercises to calm your mind and body.")
