@@ -1,16 +1,10 @@
 import streamlit as st
-from playsound import playsound
-import time
+from pydub import AudioSegment
+from pydub.playback import play
 
 def play_sound(sound_file):
-    playsound(sound_file)
-
-def breathing_exercise(duration):
-    st.write("Practice deep breathing exercises to calm your mind and body.")
-    st.write("Inhale deeply through your nose, hold your breath for a few seconds, then exhale slowly through your mouth.")
-    st.write(f"Duration: {duration} seconds")
-    time.sleep(duration)
-    st.write("Breathing exercise completed.")
+    audio = AudioSegment.from_file(sound_file)
+    play(audio)
 
 def main():
     st.title("Meditation App")
@@ -44,9 +38,11 @@ def main():
                 play_sound("soft_piano.mp3")
 
     elif option == "Breathing Exercises":
-        duration = st.slider("Select the duration (in seconds)", 1, 10)
+        st.write("Practice deep breathing exercises to calm your mind and body.")
+        st.write("Inhale deeply through your nose, hold your breath for a few seconds, then exhale slowly through your mouth.")
         if st.button("Start"):
-            breathing_exercise(duration)
+            # TODO: Add code for breathing exercise timer
+            st.write("Breathing exercise started.")
 
 if __name__ == '__main__':
     main()
